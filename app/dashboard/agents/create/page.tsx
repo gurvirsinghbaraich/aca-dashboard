@@ -11,3 +11,5 @@ export default function CreateAgentPage() {
     </section>
   );
 }
+
+export const dynamic = "force-dynamic";
