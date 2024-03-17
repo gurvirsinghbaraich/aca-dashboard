@@ -24,4 +24,6 @@ model Employee {
   username    String
   password    String
   role        String    @default("staff")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime? @default(now())
 }

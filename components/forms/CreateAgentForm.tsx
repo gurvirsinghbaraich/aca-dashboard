@@ -61,6 +61,7 @@ export default function CreateAgentForm({
 
   return (
     <form
+      method="GET"
       action={clientCreateAgentAction}
       className="flex flex-col gap-3 rounded bg-white px-6 py-8 shadow-sm"
     >

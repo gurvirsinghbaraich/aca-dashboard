@@ -2,7 +2,14 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Button, Input } from "@/components";
-import { useCallback, useState, useTransition } from "react";
+import {
+  FormEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  useTransition,
+} from "react";
 import { ServerAction } from "@/interface";
 
 type FormErrors = {
@@ -12,7 +19,6 @@ type FormErrors = {
 
 export default function LoginForm({ loginAction }: { loginAction: any }) {
   const [waitingForResponse, startTransition] = useTransition();
-
   const [errors, setErrors] = useState<FormErrors>({
     username: null,
     password: null,
@@ -21,22 +27,26 @@ export default function LoginForm({ loginAction }: { loginAction: any }) {
   const clientLoginAction = useCallback(
     (formData: FormData) => {
       startTransition(async () => {
-        const { success, errors }: ServerAction<keyof FormErrors> =
+        const response: ServerAction<keyof FormErrors> =
           await loginAction(formData);
 
-        const latestErrors: FormErrors = {
-          username: null,
-          password: null,
-        };
+        if (response) {
+          const { success, errors } = response;
 
-        if (!success) {
-          errors.map((error) => {
-            latestErrors[error.path[0]] = error.message;
-          });
+          const latestErrors: FormErrors = {
+            username: null,
+            password: null,
+          };
+
+          if (!success) {
+            errors.map((error) => {
+              latestErrors[error.path[0]] = error.message;
+            });
+          }
+
+          setErrors(latestErrors);
+          if (success) redirect("/");
         }
-
-        setErrors(latestErrors);
-        if (success) redirect("/");
       });
     },
     [loginAction],
