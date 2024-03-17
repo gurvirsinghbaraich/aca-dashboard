@@ -3,7 +3,7 @@ import CreateAgentForm from "@/components/forms/CreateAgentForm";
 
 export default function CreateAgentPage() {
   return (
-    <section className="flex flex-col gap-4 p-4">
+    <section className="flex flex-col gap-4">
       <h2 className="text-2xl font-bold">Create New Agent</h2>
 
       {/* CreateAgent Form */}
