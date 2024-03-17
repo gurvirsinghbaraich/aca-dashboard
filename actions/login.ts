@@ -20,7 +20,7 @@ export default async function login(
     const { username, password } = userSchema.parse(data);
 
     // Verifying if the user exists
-    const user = await validateUser(username, password);
+    const user: any = await validateUser(username, password);
 
     if (!user) {
       const errors = [
@@ -33,6 +33,19 @@ export default async function login(
       };
     }
 
+    if (!user.emailVerified) {
+      const errors = [
+        makeFormError(
+          "Please verify your email, before logging in.",
+          "username",
+        ),
+      ];
+
+      return {
+        success: false,
+        errors,
+      };
+    }
     // Creating a user session
     const expires = new Date(Date.now() + cookieExpiresIn);
 

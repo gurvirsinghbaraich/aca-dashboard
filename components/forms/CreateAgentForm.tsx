@@ -1,11 +1,8 @@
 "use client";
 
 import { ServerAction } from "@/interface";
-import { redirect } from "next/navigation";
 import { Button, Input } from "@/components";
-import { useCallback, useState, useTransition } from "react";
-import { getPath } from "@/roles";
-import { LIST_AGENTS } from "@/routes";
+import { useCallback, useRef, useState, useTransition } from "react";
 
 type FormErrors = {
   name: string | null;
@@ -21,6 +18,7 @@ export default function CreateAgentForm({
 }: {
   createAgentAction: any;
 }) {
+  const formRef = useRef<HTMLFormElement>(null);
   const [waitingForResponse, startTransition] = useTransition();
   const [errors, setErrors] = useState<FormErrors>({
     address: null,
@@ -53,15 +51,15 @@ export default function CreateAgentForm({
         }
 
         setErrors(latestErrors);
-        if (success) redirect(getPath("agent", LIST_AGENTS, "/"));
+        if (success) formRef.current?.reset();
       });
     },
-    [createAgentAction],
+    [createAgentAction, formRef],
   );
 
   return (
     <form
-      method="GET"
+      ref={formRef}
       action={clientCreateAgentAction}
       className="flex flex-col gap-3 rounded bg-white px-6 py-8 shadow-sm"
     >

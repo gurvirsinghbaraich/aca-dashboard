@@ -26,9 +26,9 @@ export const sidebarLinks: SidebarLinks = {
     {
       label: "Dashboard",
       id: ADMIN_DASHBOARD,
-      canView: canViewAdmin,
+      canView: () => true,
       icon: <DashboardIcon />,
-      path: "/dashboard/admin",
+      path: "/dashboard",
     },
   ],
   agent: [

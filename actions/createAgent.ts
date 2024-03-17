@@ -1,12 +1,24 @@
 import z from "zod";
 import hash from "@/lib/hash";
+import { encryptSession } from "@/auth";
 import getDatabase from "@/auth/providers/prisma";
 import { ServerActionResponse } from "@/interface";
+import { sendVerificationEmail } from "@/actions/emails/resend";
+import { headers } from "next/headers";
 
 export default async function createAgent(
   formData: FormData,
 ): Promise<ServerActionResponse> {
   "use server";
+
+  const headerMap = headers();
+  const referer = headerMap.get("referer")!;
+
+  if (!URL.canParse(referer)) {
+    throw new Error("Invalid referer");
+  }
+
+  const { origin } = new URL(referer);
 
   const userSchema = z.object({
     name: z.string().min(1, "Name is required"),
@@ -29,20 +41,33 @@ export default async function createAgent(
     const username = email.split("@")[0].toLowerCase();
     const passwordHash = hash(password);
 
-    console.log(password);
+    const paylaod = {
+      username,
+      secret: Math.random().toString(36).substring(2),
+      expires: new Date(0),
+    };
 
-    // Create a new agent
-    await getDatabase().employee.create({
-      data: {
+    await Promise.all([
+      getDatabase().employee.create({
+        data: {
+          email,
+          address,
+          fullName,
+          username,
+          role: "agent",
+          phoneNumber: phone,
+          password: passwordHash,
+          secret: paylaod.secret,
+        },
+      }),
+      sendVerificationEmail({
         email,
-        address,
-        fullName,
-        username,
-        role: "agent",
-        phoneNumber: phone,
-        password: passwordHash,
-      },
-    });
+        url: new URL(
+          `auth/verify-email?_q=${await encryptSession(paylaod)}`,
+          origin,
+        ).toString(),
+      }),
+    ]);
 
     return { success: true, errors: [] };
   } catch (error: any) {

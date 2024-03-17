@@ -10,7 +10,11 @@ export async function middleware(request: NextRequest) {
     const { pathname } = request.nextUrl;
 
     if (!session) {
-      return NextResponse.next();
+      return NextResponse.next({
+        headers: {
+          "Request-Url": request.nextUrl.toString(),
+        },
+      });
     }
 
     if (/^\/dashboard\/*/.test(pathname)) {

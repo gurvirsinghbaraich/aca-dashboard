@@ -16,14 +16,16 @@ datasource db {
 model Employee {
   id String @id @default(auto()) @map("_id") @db.ObjectId
 
-  email       String
-  fullName    String
-  phoneNumber String
-  address     String
-  birthday    DateTime?
-  username    String
-  password    String
-  role        String    @default("staff")
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime? @default(now())
+  email         String
+  fullName      String
+  phoneNumber   String
+  address       String
+  birthday      DateTime?
+  username      String
+  password      String
+  role          String    @default("staff")
+  createdAt     DateTime  @default(now())
+  secret        String?
+  emailVerified Boolean   @default(false)
+  updatedAt     DateTime? @default(now())
 }

@@ -1,18 +1,26 @@
-import { RefObject } from "react";
+import { RefObject, useContext } from "react";
 import { Input } from "@/components";
-// import UserButton from "@/components/auth/UserButton";
 import {
   LanguageIcon,
   MenuIcon,
   NotificationIcon,
   SearchIcon,
 } from "@/components/icons";
+import UserButton from "../auth/UserButton";
+import {
+  DashboardContext,
+  DashboardContextProps,
+} from "@/contexts/DashboardProvider";
 
 export default function Topbar({
+  logout,
   triggerRef,
 }: {
+  logout: any;
   triggerRef: RefObject<HTMLDivElement>;
 }) {
+  const { session } = useContext<DashboardContextProps>(DashboardContext);
+
   return (
     <div className="flex w-full items-center justify-between bg-white px-5 py-3 shadow">
       <div className="flex items-center justify-start gap-2">
@@ -39,7 +47,7 @@ export default function Topbar({
           </div>
         </div>
 
-        {/* <UserButton /> */}
+        <UserButton session={session} logout={logout} />
       </div>
     </div>
   );

@@ -1,18 +1,21 @@
 "use client";
 import gsap from "gsap";
-import { sidebarLinks } from "@/routes";
-import { SessionCookie } from "@/interface";
-import { RefObject, useEffect, useRef, useState } from "react";
-import PopulateSiderbarLinks from "@/components/PopulateSidebarLinks";
-import { hasLinksToRender, isSuperiorOrEqual, sanitizeRole } from "@/roles";
 import debounce from "@/lib/debounce";
+import { sidebarLinks } from "@/routes";
+import PopulateSiderbarLinks from "@/components/PopulateSidebarLinks";
+import { RefObject, useContext, useEffect, useRef, useState } from "react";
+import { hasLinksToRender, isSuperiorOrEqual, sanitizeRole } from "@/roles";
+import {
+  DashboardContext,
+  DashboardContextProps,
+} from "@/contexts/DashboardProvider";
 
 type SidebarProps = {
-  session: SessionCookie;
   triggerRef: RefObject<HTMLDivElement>;
 };
 
-export default function Sidebar({ session, triggerRef }: SidebarProps) {
+export default function Sidebar({ triggerRef }: SidebarProps) {
+  const { session } = useContext<DashboardContextProps>(DashboardContext);
   const sidebarRef = useRef<HTMLDivElement>(null);
   const closeTriggerRef = useRef<HTMLDivElement>(null);
   const sidebarContainerRef = useRef<HTMLDivElement>(null);
@@ -106,11 +109,11 @@ export default function Sidebar({ session, triggerRef }: SidebarProps) {
         <div className="flex flex-col gap-4 px-4">
           {/* Admin Links */}
           <div>
-            {isSuperiorOrEqual(sanitizeRole(session.user.role), "admin") && (
+            {isSuperiorOrEqual(sanitizeRole(session.user?.role), "admin") && (
               <div className="py-4 text-sm font-semibold uppercase">Admin</div>
             )}
             <PopulateSiderbarLinks
-              userRole={sanitizeRole(session.user.role)}
+              userRole={sanitizeRole(session.user?.role)}
               links={sidebarLinks.admin}
             />
           </div>

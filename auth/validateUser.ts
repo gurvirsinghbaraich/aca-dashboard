@@ -4,7 +4,15 @@ import compare from "@/lib/compare";
 export default function validateUser(
   username: string,
   password: string,
-): Promise<boolean | Partial<{ id: string; fullName: string; role: string }>> {
+): Promise<
+  | boolean
+  | Partial<{
+      id: string;
+      fullName: string;
+      role: string;
+      emailVerified: boolean;
+    }>
+> {
   return new Promise(async (resolve) => {
     const employee = await getDatabase().employee.findFirst({
       where: { username },
@@ -25,6 +33,7 @@ export default function validateUser(
       id: employee.id,
       role: employee.role,
       fullName: employee.fullName,
+      emailVerified: employee.emailVerified ?? false,
     });
   });
 }

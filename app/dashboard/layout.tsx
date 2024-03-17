@@ -2,6 +2,11 @@ import { getSession } from "@/auth";
 import { redirect } from "next/navigation";
 import { SessionCookie } from "@/interface";
 import Dashboard from "@/components/dashboard/Dashboard";
+import { logout } from "@/actions";
+import DashboardProvider from "@/contexts/DashboardProvider";
+import { Role } from "@/roles";
+import getDatabase from "@/auth/providers/prisma";
+import moment from "moment";
 
 export default async function DashboardLayout({
   children,
@@ -12,5 +17,36 @@ export default async function DashboardLayout({
     return redirect("/");
   }
 
-  return <Dashboard session={session}>{children}</Dashboard>;
+  const getCount = async (role: Role) => {
+    const formatter = new Intl.NumberFormat("en-US", {
+      minimumIntegerDigits: 2,
+    }).format;
+
+    const { _count } = await getDatabase().employee.aggregate({
+      _count: true,
+      where: {
+        role: role,
+        createdAt: {
+          gte: moment()
+            .set("hour", 0)
+            .set("minute", 0)
+            .set("second", 0)
+            .toISOString(),
+        },
+      },
+    });
+
+    return formatter(_count);
+  };
+
+  const recentlyAddedAgents = await getCount("agent");
+  const recentlyAddedCustomers = await getCount("customer");
+
+  return (
+    <DashboardProvider
+      value={{ session, recentlyAddedAgents, recentlyAddedCustomers }}
+    >
+      <Dashboard logout={logout}>{children}</Dashboard>
+    </DashboardProvider>
+  );
 }
