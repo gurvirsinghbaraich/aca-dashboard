@@ -1,12 +1,12 @@
 "use client";
-import gsap from "gsap";
-import debounce from "@/lib/debounce";
-import { sidebarLinks } from "@/routes";
 import PopulateSiderbarLinks from "@/components/PopulateSidebarLinks";
-import { RefObject, useContext, useEffect, useRef, useState } from "react";
-import { hasLinksToRender, isSuperiorOrEqual, sanitizeRole } from "@/roles";
 import { DashboardContext } from "@/contexts/DashboardProvider";
 import translate from "@/hooks/translate";
+import debounce from "@/lib/debounce";
+import { hasLinksToRender, isSuperiorOrEqual, sanitizeRole } from "@/roles";
+import { sidebarLinks } from "@/routes";
+import gsap from "gsap";
+import { RefObject, useContext, useEffect, useRef, useState } from "react";
 
 type SidebarProps = {
   triggerRef: RefObject<HTMLDivElement>;

@@ -1,4 +1,3 @@
-import React from "react";
 import { cn } from "@/lib/cn";
 
 function LoadingIcon({ className }: { className?: string }) {

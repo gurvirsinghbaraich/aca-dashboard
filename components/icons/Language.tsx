@@ -1,5 +1,4 @@
 import { cn } from "@/lib/cn";
-import React from "react";
 
 function LanguageIcon({ className }: { className?: string }) {
   return (

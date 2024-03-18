@@ -1,10 +1,10 @@
-import z from "zod";
-import hash from "@/lib/hash";
+import { sendVerificationEmail } from "@/actions/emails/resend";
 import { encryptSession } from "@/auth";
 import getDatabase from "@/auth/providers/prisma";
 import { ServerActionResponse } from "@/interface";
-import { sendVerificationEmail } from "@/actions/emails/resend";
+import hash from "@/lib/hash";
 import { headers } from "next/headers";
+import z from "zod";
 
 export default async function createAgent(
   formData: FormData,

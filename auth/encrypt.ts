@@ -1,5 +1,4 @@
 import { SignJWT } from "jose";
-import { cookieExpiresIn } from ".";
 
 export default async function encrypt(
   payload: any,

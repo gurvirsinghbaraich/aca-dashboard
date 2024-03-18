@@ -1,10 +1,10 @@
 "use client";
-import React, { useContext } from "react";
 import { Button } from "@/components";
 import UserAvatar from "@/components/icons/UserAvatar";
-import translate from "@/hooks/translate";
 import { DashboardContext } from "@/contexts/DashboardProvider";
 import { ServerActionContext } from "@/contexts/ServerActionContext";
+import translate from "@/hooks/translate";
+import React, { useContext } from "react";
 
 const ClientSideUserButton = () => {
   const t = translate();

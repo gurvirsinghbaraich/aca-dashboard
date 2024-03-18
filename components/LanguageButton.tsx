@@ -1,8 +1,8 @@
 "use client";
 import { locales } from "@/locales";
-import { LanguageIcon } from "./icons";
-import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
+import { useEffect, useRef } from "react";
+import { LanguageIcon } from "./icons";
 
 export default function LanguageButton() {
   const router = useRouter();

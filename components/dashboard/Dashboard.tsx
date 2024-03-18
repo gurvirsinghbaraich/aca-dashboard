@@ -1,7 +1,7 @@
 "use client";
-import { useRef } from "react";
-import Topbar from "@/components/dashboard/Topbar";
 import Sidebar from "@/components/dashboard/Sidebar";
+import Topbar from "@/components/dashboard/Topbar";
+import { useRef } from "react";
 
 export default function Dashboard({
   children,

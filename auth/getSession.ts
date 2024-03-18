@@ -1,5 +1,5 @@
-import { cookies } from "next/headers";
 import { CookiePayload, decryptSession } from "@/auth";
+import { cookies } from "next/headers";
 
 export default function getSession<T>(): Promise<CookiePayload & T> | null {
   // Getting the session from the cookies

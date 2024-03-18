@@ -1,10 +1,10 @@
 "use client";
-import { Role } from "@/roles";
+import SearchEmployeeForm from "@/components/forms/SearchEmployeeForm";
 import translate from "@/hooks/translate";
-import { redirect } from "next/navigation";
 import { useTitle } from "@/hooks/useTitle";
 import { capitalize } from "@/lib/capitalize";
-import SearchEmployeeForm from "@/components/forms/SearchEmployeeForm";
+import { Role } from "@/roles";
+import { redirect } from "next/navigation";
 
 export default function ListEmployeePage({
   params,
@@ -13,11 +13,12 @@ export default function ListEmployeePage({
 }) {
   const role = params.role.substring(0, params.role.length - 1);
 
+  useTitle(`List ${capitalize(role!)} - Aca Dashboard`);
+
   if (!["agent", "customer"].includes(role)) {
     return redirect("/");
   }
 
-  useTitle(`List ${capitalize(role!)} - Aca Dashboard`);
   const t = translate();
 
   return (

@@ -1,10 +1,10 @@
+import { Button } from "@react-email/button";
 import { Head } from "@react-email/head";
 import { Html } from "@react-email/html";
-import { Text } from "@react-email/text";
-import { Button } from "@react-email/button";
 import { Preview } from "@react-email/preview";
 import { Section } from "@react-email/section";
 import { Tailwind } from "@react-email/tailwind";
+import { Text } from "@react-email/text";
 
 export default function EmailVerificationTemplate({ url }: { url: string }) {
   return (

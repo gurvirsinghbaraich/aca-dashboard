@@ -1,9 +1,9 @@
-import { sidebarLinks } from "@/routes";
+import { cookieExpiresIn, encryptSession, getSession } from "@/auth";
 import { SessionCookie } from "@/interface";
-import { NextRequest, NextResponse } from "next/server";
-import { getRoleFromPath, sanitizeRole } from "@/roles";
-import { getSession, encryptSession, cookieExpiresIn } from "@/auth";
 import intlMiddleware from "@/intl";
+import { getRoleFromPath, sanitizeRole } from "@/roles";
+import { sidebarLinks } from "@/routes";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function middleware(request: NextRequest) {
   const response = intlMiddleware(request);

@@ -1,11 +1,11 @@
 "use client";
-import Link from "next/link";
-import { useState } from "react";
-import translate from "@/hooks/translate";
-import { redirect } from "next/navigation";
-import { ServerAction } from "@/interface";
 import { Button, Input } from "@/components";
+import translate from "@/hooks/translate";
 import useServerAction from "@/hooks/useServerAction";
+import { ServerAction } from "@/interface";
+import Link from "next/link";
+import { redirect } from "next/navigation";
+import { useState } from "react";
 
 type FormErrors = {
   username: string | null;

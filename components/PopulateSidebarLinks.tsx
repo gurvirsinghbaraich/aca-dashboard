@@ -1,6 +1,6 @@
-import Link from "next/link";
 import translate from "@/hooks/translate";
 import { Role, SidebarLinks } from "@/roles";
+import Link from "next/link";
 
 export default function PopulateSiderbarLinks({
   links,

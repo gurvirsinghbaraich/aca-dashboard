@@ -1,11 +1,11 @@
 "use client";
-import { cn } from "@/lib/cn";
-import { useContext } from "react";
+import { DashboardContext } from "@/contexts/DashboardProvider";
 import translate from "@/hooks/translate";
 import { useTitle } from "@/hooks/useTitle";
-import AdminDashboardChart from "./AdminDashboardChart";
-import { DashboardContext } from "@/contexts/DashboardProvider";
+import { cn } from "@/lib/cn";
 import getAppropriateGreeting from "@/lib/getAppropriateGreeting";
+import { useContext } from "react";
+import AdminDashboardChart from "./AdminDashboardChart";
 
 export default function AdminDashboard() {
   useTitle("Admin - Aca Dashboard");

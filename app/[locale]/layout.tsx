@@ -1,6 +1,6 @@
+import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { Space_Grotesk } from "next/font/google";
-import { NextIntlClientProvider } from "next-intl";
 
 const space_grotesk = Space_Grotesk({
   subsets: ["latin"],

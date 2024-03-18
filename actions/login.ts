@@ -1,8 +1,8 @@
-import z from "zod";
-import { cookies } from "next/headers";
+import { cookieExpiresIn, encryptSession, validateUser } from "@/auth";
 import { makeFormError } from "@/auth/errors";
 import { ServerActionResponse } from "@/interface";
-import { cookieExpiresIn, encryptSession, validateUser } from "@/auth";
+import { cookies } from "next/headers";
+import z from "zod";
 
 export default async function login(
   formData: FormData,

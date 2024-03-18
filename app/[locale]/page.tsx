@@ -1,7 +1,7 @@
 import { getSession } from "@/auth";
-import { redirect } from "next/navigation";
 import { SessionCookie } from "@/interface";
 import { getLocale } from "next-intl/server";
+import { redirect } from "next/navigation";
 
 export default async function Home() {
   const locale = await getLocale();

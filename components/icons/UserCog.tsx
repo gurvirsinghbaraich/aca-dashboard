@@ -1,5 +1,3 @@
-import React from "react";
-
 function UserCogIcon() {
   return (
     <svg viewBox="0 0 15 18" className="h-6 w-6">

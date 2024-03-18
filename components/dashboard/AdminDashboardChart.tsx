@@ -1,10 +1,10 @@
 "use client";
 
-import { useContext } from "react";
 import {
   DashboardContext,
   DashboardContextProps,
 } from "@/contexts/DashboardProvider";
+import { useContext } from "react";
 import { Doughnut } from "react-chartjs-2";
 
 // Registering Components

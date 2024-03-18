@@ -1,5 +1,5 @@
-import { jwtVerify } from "jose";
 import { CookiePayload } from "@/auth";
+import { jwtVerify } from "jose";
 
 export default async function decrypt<T>(
   cookieValue: string,

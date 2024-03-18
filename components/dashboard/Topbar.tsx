@@ -1,15 +1,15 @@
 "use client";
-import { RefObject, useContext } from "react";
 import { Input } from "@/components";
 import { MenuIcon, NotificationIcon, SearchIcon } from "@/components/icons";
-import UserButton from "../auth/UserButton";
 import {
   DashboardContext,
   DashboardContextProps,
 } from "@/contexts/DashboardProvider";
 import { ServerActionContext } from "@/contexts/ServerActionContext";
 import translate from "@/hooks/translate";
+import { RefObject, useContext } from "react";
 import LanguageButton from "../LanguageButton";
+import UserButton from "../auth/UserButton";
 
 export default function Topbar({
   triggerRef,
@@ -46,7 +46,7 @@ export default function Topbar({
           </div>
         </div>
 
-        <UserButton session={session} logout={logout} />
+        <UserButton />
       </div>
     </div>
   );
