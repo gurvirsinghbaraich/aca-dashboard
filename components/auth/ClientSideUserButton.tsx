@@ -1,18 +1,15 @@
 "use client";
-import React from "react";
+import React, { useContext } from "react";
 import { Button } from "@/components";
-import { SessionCookie } from "@/interface";
 import UserAvatar from "@/components/icons/UserAvatar";
 import translate from "@/hooks/translate";
+import { DashboardContext } from "@/contexts/DashboardProvider";
+import { ServerActionContext } from "@/contexts/ServerActionContext";
 
-const ClientSideUserButton = ({
-  session,
-  logoutAction,
-}: {
-  session: SessionCookie;
-  logoutAction: () => void;
-}) => {
+const ClientSideUserButton = () => {
   const t = translate();
+  const { session } = useContext(DashboardContext);
+  const { logout } = useContext(ServerActionContext);
   const modelRef = React.useRef<HTMLDialogElement>(null);
 
   const toggleModel = React.useCallback(() => {
@@ -49,7 +46,7 @@ const ClientSideUserButton = ({
       </div>
       <dialog
         ref={modelRef}
-        className="absolute -left-36 top-[110%] p-3 shadow"
+        className="absolute -left-36 top-[110%] z-[1] p-3 shadow"
       >
         <div className="flex flex-col gap-1">
           <div className="w-screen max-w-36 overflow-hidden rounded-md">
@@ -71,7 +68,7 @@ const ClientSideUserButton = ({
             </div>
           </div>
           <div className="my-2 border-2 border-dotted py-2"></div>
-          <form action={logoutAction}>
+          <form action={logout}>
             <Button className="py-2" title={t("Logout")} />
           </form>
         </div>

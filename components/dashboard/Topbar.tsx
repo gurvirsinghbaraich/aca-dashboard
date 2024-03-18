@@ -21,7 +21,7 @@ export default function Topbar({
   const { session } = useContext<DashboardContextProps>(DashboardContext);
 
   return (
-    <div className="flex w-full items-center justify-between bg-white px-5 py-3 shadow">
+    <div className="z-30 flex w-full items-center justify-between bg-white px-5 py-3 shadow">
       <div className="flex items-center justify-start gap-2">
         <div
           ref={triggerRef}

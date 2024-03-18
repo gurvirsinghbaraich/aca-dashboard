@@ -2,12 +2,15 @@ export interface SessionCookie {
   user: { id: string; role: string; fullName: string };
 }
 
-export interface ServerActionResponse {
-  data?: any;
+export interface ServerActionResponse<T = any> {
+  data?: T;
   success: boolean;
   errors: { message: string; path: [string] }[];
 }
 
-export type ServerAction<T> = Omit<ServerActionResponse, "errors"> & {
-  errors: { message: string; path: [T] }[];
+export type ServerAction<S, T = any> = Omit<
+  ServerActionResponse<T>,
+  "errors"
+> & {
+  errors: { message: string; path: [S] }[];
 };

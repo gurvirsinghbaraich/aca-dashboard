@@ -5,12 +5,12 @@ type Action = (formData: FormData) => void;
 
 type ServerActionContextValue = {
   logout: Action;
-  searchAgent: Action;
+  searchEmployee: Action;
 };
 
 export const ServerActionContext = createContext<ServerActionContextValue>({
   logout: () => {},
-  searchAgent: () => {},
+  searchEmployee: () => {},
 });
 
 export const ServerActionProvider = ({

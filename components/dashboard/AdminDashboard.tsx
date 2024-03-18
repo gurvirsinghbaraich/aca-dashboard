@@ -2,18 +2,21 @@
 import { cn } from "@/lib/cn";
 import { useContext } from "react";
 import translate from "@/hooks/translate";
+import { useTitle } from "@/hooks/useTitle";
 import AdminDashboardChart from "./AdminDashboardChart";
 import { DashboardContext } from "@/contexts/DashboardProvider";
 import getAppropriateGreeting from "@/lib/getAppropriateGreeting";
 
 export default function AdminDashboard() {
+  useTitle("Admin - Aca Dashboard");
+
   const t = translate();
   const { recentlyAddedAgents, recentlyAddedCustomers, session } =
     useContext(DashboardContext);
 
   return (
     <>
-      <section className="mx-auto flex w-full max-w-4xl flex-col-reverse rounded-md bg-white p-4 px-12 lg:grid lg:grid-cols-[max-content_1fr] lg:grid-rows-1">
+      <section className="mx-auto mt-12 flex w-full max-w-4xl flex-col-reverse rounded-md bg-white p-4 px-12 lg:grid lg:grid-cols-[max-content_1fr] lg:grid-rows-1">
         <div className="flex flex-col justify-center gap-4">
           <div>
             <h2 className="text-2xl font-medium capitalize text-[var(--blue)]">
@@ -58,6 +61,7 @@ export default function AdminDashboard() {
       </section>
 
       {/* All agents */}
+      <div className="my-20">{/* <ListEmployeePage /> */}</div>
     </>
   );
 }

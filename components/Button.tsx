@@ -14,7 +14,7 @@ const Button = React.forwardRef<
       ref={ref}
       {...props}
       className={cn(
-        "w-full rounded bg-[var(--accent)] p-3 px-4 text-white outline-none hover:opacity-90",
+        "w-full rounded border border-[var(--accent)] bg-[var(--accent)] p-3 px-4 text-white outline-none hover:opacity-90",
         className,
       )}
     >

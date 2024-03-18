@@ -1,12 +1,11 @@
 "use client";
 import Link from "next/link";
-import { useContext, useState } from "react";
+import { useState } from "react";
+import translate from "@/hooks/translate";
 import { redirect } from "next/navigation";
 import { ServerAction } from "@/interface";
 import { Button, Input } from "@/components";
 import useServerAction from "@/hooks/useServerAction";
-import { DashboardContext } from "@/contexts/DashboardProvider";
-import translate from "@/hooks/translate";
 
 type FormErrors = {
   username: string | null;

@@ -14,7 +14,7 @@ export default function LanguageButton() {
 
       languageIconRef.current.addEventListener("click", () => {
         const { pathname } = window.location;
-        const identifer = pathname.replace(/\/(.*)?(\/.*)/, "$1:$2");
+        const identifer = pathname.replace(/\/(..)?(\/.*)/, "$1:$2");
 
         const [locale, path] = identifer.split(":");
         let localeIndex = locales.indexOf(locale) + 1;

@@ -1,6 +1,5 @@
 import { login } from "@/actions";
 import LoginForm from "@/components/forms/LoginForm";
-import translate from "@/hooks/translate";
 
 export default async function Page() {
   return (

@@ -1,7 +1,9 @@
 "use client";
 import { useEffect, useState } from "react";
+import translate from "./translate";
 
-export function useTitle(text: string, locale: string = "en") {
+export function useTitle(text: string) {
+  const t = translate();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -9,6 +11,6 @@ export function useTitle(text: string, locale: string = "en") {
   }, []);
 
   useEffect(() => {
-    if (mounted) document.title = text;
-  }, [locale, mounted]);
+    if (mounted) document.title = t(text);
+  }, [mounted]);
 }

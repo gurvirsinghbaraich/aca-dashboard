@@ -11,3 +11,7 @@ export default function CreateAgentPage() {
     </section>
   );
 }
+
+export const metadata = {
+  title: "Create Agent - Aca Dashboard",
+};

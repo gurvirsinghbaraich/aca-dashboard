@@ -8,7 +8,7 @@ import { Role } from "@/roles";
 import getDatabase from "@/auth/providers/prisma";
 import moment from "moment";
 import { ServerActionProvider } from "@/contexts/ServerActionContext";
-import searchAgent from "@/actions/searchAgent";
+import searchEmployee from "@/actions/searchEmployee";
 import { getLocale } from "next-intl/server";
 
 export default async function DashboardLayout({
@@ -49,11 +49,20 @@ export default async function DashboardLayout({
 
   return (
     <DashboardProvider
-      value={{ session, locale, recentlyAddedAgents, recentlyAddedCustomers }}
+      value={{
+        session,
+        locale,
+        recentlyAddedAgents,
+        recentlyAddedCustomers,
+      }}
     >
-      <ServerActionProvider value={{ searchAgent, logout }}>
+      <ServerActionProvider value={{ searchEmployee, logout }}>
         <Dashboard>{children}</Dashboard>
       </ServerActionProvider>
     </DashboardProvider>
   );
 }
+
+export const metadata = {
+  title: "Aca Dashboard",
+};

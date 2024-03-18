@@ -2,6 +2,6 @@ import { logout } from "@/actions";
 import { redirect } from "next/navigation";
 
 export default async function logoutPage() {
-  logout();
+  await logout();
   return redirect("/login");
 }

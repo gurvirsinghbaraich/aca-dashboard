@@ -1,7 +1,6 @@
 import { decryptSession, getSession } from "@/auth";
 import getDatabase from "@/auth/providers/prisma";
 import { SessionCookie } from "@/interface";
-import Head from "next/head";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 

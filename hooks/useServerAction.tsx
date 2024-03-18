@@ -10,9 +10,9 @@ export default function useServerAction<ServerActionResponse>(
   const [response, setResponse] = useState<ServerActionResponse | null>(null);
 
   const serverActionAction = useCallback(
-    async (formData: FormData) => {
+    (formData: FormData) => {
       startTransition(async () => {
-        const response: ServerActionResponse = await serverAction(formData);
+        const response = await serverAction(formData);
 
         if (response) {
           callback?.(response);

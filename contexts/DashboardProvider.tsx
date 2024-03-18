@@ -1,15 +1,23 @@
 "use client";
-import { createContext } from "react";
+import { Employee } from "@prisma/client";
 import { SessionCookie } from "@/interface";
+import { createContext, useState } from "react";
 
 export type DashboardContextProps = {
   locale: string;
   session: SessionCookie;
   recentlyAddedAgents: string;
   recentlyAddedCustomers: string;
+  searchEmployeeResult: Pick<
+    Employee,
+    "id" | "username" | "email" | "phoneNumber"
+  >[];
+  setSearchEmployeeResult: (
+    agent: Pick<Employee, "id" | "username" | "email" | "phoneNumber">[],
+  ) => void;
 };
 
-export const DashboardContext = createContext<DashboardContextProps>({
+const payload = {
   locale: "en",
   recentlyAddedAgents: "0",
   recentlyAddedCustomers: "0",
@@ -20,17 +28,32 @@ export const DashboardContext = createContext<DashboardContextProps>({
       fullName: "",
     },
   },
-});
+  searchEmployeeResult: [],
+  setSearchEmployeeResult: () => {},
+};
+
+export const DashboardContext = createContext<DashboardContextProps>(payload);
 
 export default function DashboardProvider({
   value,
   children,
 }: {
   children: React.ReactNode;
-  value: DashboardContextProps;
+  value: Partial<DashboardContextProps>;
 }) {
+  const [searchEmployeeResult, setSearchEmployeeResult] = useState<
+    Pick<Employee, "id" | "username" | "email" | "phoneNumber">[]
+  >([]);
+
   return (
-    <DashboardContext.Provider value={value}>
+    <DashboardContext.Provider
+      value={{
+        ...payload,
+        searchEmployeeResult,
+        setSearchEmployeeResult,
+        ...value,
+      }}
+    >
       {children}
     </DashboardContext.Provider>
   );
