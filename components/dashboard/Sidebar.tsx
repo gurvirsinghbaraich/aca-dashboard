@@ -14,6 +14,7 @@ type SidebarProps = {
 
 export default function Sidebar({ triggerRef }: SidebarProps) {
   const t = translate();
+  const { locale } = useContext(DashboardContext);
   const { session } = useContext(DashboardContext);
   const sidebarRef = useRef<HTMLDivElement>(null);
   const closeTriggerRef = useRef<HTMLDivElement>(null);
@@ -114,6 +115,7 @@ export default function Sidebar({ triggerRef }: SidebarProps) {
               </div>
             )}
             <PopulateSiderbarLinks
+              locale={locale}
               userRole={sanitizeRole(session.user?.role)}
               links={sidebarLinks.admin}
             />
@@ -128,6 +130,7 @@ export default function Sidebar({ triggerRef }: SidebarProps) {
                 </div>
               )}
             <PopulateSiderbarLinks
+              locale={locale}
               userRole={sanitizeRole(session.user.role)}
               links={sidebarLinks.agent}
             />
@@ -144,6 +147,7 @@ export default function Sidebar({ triggerRef }: SidebarProps) {
                 </div>
               )}
             <PopulateSiderbarLinks
+              locale={locale}
               userRole={sanitizeRole(session.user.role)}
               links={sidebarLinks.customer}
             />

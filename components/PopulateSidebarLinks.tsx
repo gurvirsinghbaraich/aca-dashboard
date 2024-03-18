@@ -1,18 +1,18 @@
 import Link from "next/link";
 import translate from "@/hooks/translate";
 import { Role, SidebarLinks } from "@/roles";
-import { useLocale } from "next-intl";
 
 export default function PopulateSiderbarLinks({
-  userRole,
   links,
+  locale,
+  userRole,
 }: {
+  locale: string;
   userRole: Role;
   links: SidebarLinks[Role];
 }) {
   if (!links) return;
   const t = translate();
-  const locale = useLocale();
 
   return (
     <div className="flex flex-col gap-2">

@@ -27,11 +27,11 @@ export default function LanguageButton() {
         router.push(`/${locales[localeIndex]}${path}`);
       });
     },
-    [languageIconRef],
+    [languageIconRef, router],
   );
 
   return (
-    <div ref={languageIconRef}>
+    <div ref={languageIconRef} title="Toggle Language">
       <LanguageIcon className="h-6 w-6 cursor-pointer" />
     </div>
   );
