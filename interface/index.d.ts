@@ -3,11 +3,11 @@ export interface SessionCookie {
 }
 
 export interface ServerActionResponse {
+  data?: any;
   success: boolean;
   errors: { message: string; path: [string] }[];
 }
 
-export type ServerAction<T> = {
-  success: boolean;
+export type ServerAction<T> = Omit<ServerActionResponse, "errors"> & {
   errors: { message: string; path: [T] }[];
 };

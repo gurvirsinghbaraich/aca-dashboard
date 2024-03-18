@@ -55,6 +55,8 @@ export default async function AdminDashboard() {
           <AdminDashboardChart />
         </div>
       </section>
+
+      {/* All agents */}
     </>
   );
 }

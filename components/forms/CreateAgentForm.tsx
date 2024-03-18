@@ -2,7 +2,8 @@
 
 import { ServerAction } from "@/interface";
 import { Button, Input } from "@/components";
-import { useCallback, useRef, useState, useTransition } from "react";
+import { useRef, useState } from "react";
+import useServerAction from "@/hooks/useServerAction";
 
 type FormErrors = {
   name: string | null;
@@ -19,7 +20,6 @@ export default function CreateAgentForm({
   createAgentAction: any;
 }) {
   const formRef = useRef<HTMLFormElement>(null);
-  const [waitingForResponse, startTransition] = useTransition();
   const [errors, setErrors] = useState<FormErrors>({
     address: null,
     email: null,
@@ -29,38 +29,33 @@ export default function CreateAgentForm({
     phone: null,
   });
 
-  const clientCreateAgentAction = useCallback(
-    (formData: FormData) => {
-      startTransition(async () => {
-        const { success, errors }: ServerAction<keyof FormErrors> =
-          await createAgentAction(formData);
+  const { serverAction, waitingForResponse } = useServerAction<
+    ServerAction<keyof FormErrors>
+  >(createAgentAction, (response) => {
+    const { success, errors } = response;
 
-        const latestErrors: FormErrors = {
-          address: null,
-          email: null,
-          fullName: null,
-          name: null,
-          password: null,
-          phone: null,
-        };
+    const latestErrors: FormErrors = {
+      address: null,
+      email: null,
+      fullName: null,
+      name: null,
+      password: null,
+      phone: null,
+    };
 
-        if (!success) {
-          errors.map((error) => {
-            latestErrors[error.path[0]] = error.message;
-          });
-        }
-
-        setErrors(latestErrors);
-        if (success) formRef.current?.reset();
+    if (!success) {
+      errors.map((error) => {
+        latestErrors[error.path[0]] = error.message;
       });
-    },
-    [createAgentAction, formRef],
-  );
+    }
 
+    setErrors(latestErrors);
+    if (success) formRef.current?.reset();
+  });
   return (
     <form
       ref={formRef}
-      action={clientCreateAgentAction}
+      action={serverAction}
       className="flex flex-col gap-3 rounded bg-white px-6 py-8 shadow-sm"
     >
       <div className="flex justify-evenly gap-4">

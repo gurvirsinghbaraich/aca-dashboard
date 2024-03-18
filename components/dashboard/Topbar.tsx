@@ -1,3 +1,4 @@
+"use client";
 import { RefObject, useContext } from "react";
 import { Input } from "@/components";
 import {
@@ -11,14 +12,14 @@ import {
   DashboardContext,
   DashboardContextProps,
 } from "@/contexts/DashboardProvider";
+import { ServerActionContext } from "@/contexts/ServerActionContext";
 
 export default function Topbar({
-  logout,
   triggerRef,
 }: {
-  logout: any;
   triggerRef: RefObject<HTMLDivElement>;
 }) {
+  const { logout } = useContext(ServerActionContext);
   const { session } = useContext<DashboardContextProps>(DashboardContext);
 
   return (

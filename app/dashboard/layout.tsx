@@ -7,6 +7,8 @@ import DashboardProvider from "@/contexts/DashboardProvider";
 import { Role } from "@/roles";
 import getDatabase from "@/auth/providers/prisma";
 import moment from "moment";
+import { ServerActionProvider } from "@/contexts/ServerActionContext";
+import searchAgent from "@/actions/searchAgent";
 
 export default async function DashboardLayout({
   children,
@@ -46,7 +48,9 @@ export default async function DashboardLayout({
     <DashboardProvider
       value={{ session, recentlyAddedAgents, recentlyAddedCustomers }}
     >
-      <Dashboard logout={logout}>{children}</Dashboard>
+      <ServerActionProvider value={{ searchAgent, logout }}>
+        <Dashboard>{children}</Dashboard>
+      </ServerActionProvider>
     </DashboardProvider>
   );
 }

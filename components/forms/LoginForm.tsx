@@ -2,8 +2,9 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { Button, Input } from "@/components";
-import { useCallback, useState, useTransition } from "react";
+import { useState } from "react";
 import { ServerAction } from "@/interface";
+import useServerAction from "@/hooks/useServerAction";
 
 type FormErrors = {
   username: string | null;
@@ -11,42 +12,33 @@ type FormErrors = {
 };
 
 export default function LoginForm({ loginAction }: { loginAction: any }) {
-  const [waitingForResponse, startTransition] = useTransition();
   const [errors, setErrors] = useState<FormErrors>({
     username: null,
     password: null,
   });
 
-  const clientLoginAction = useCallback(
-    (formData: FormData) => {
-      startTransition(async () => {
-        const response: ServerAction<keyof FormErrors> =
-          await loginAction(formData);
+  const { serverAction, waitingForResponse } = useServerAction<
+    ServerAction<keyof FormErrors>
+  >(loginAction, (response) => {
+    const { success, errors } = response;
 
-        if (response) {
-          const { success, errors } = response;
+    const latestErrors: FormErrors = {
+      username: null,
+      password: null,
+    };
 
-          const latestErrors: FormErrors = {
-            username: null,
-            password: null,
-          };
-
-          if (!success) {
-            errors.map((error) => {
-              latestErrors[error.path[0]] = error.message;
-            });
-          }
-
-          setErrors(latestErrors);
-          if (success) redirect("/");
-        }
+    if (!success) {
+      errors.map((error) => {
+        latestErrors[error.path[0]] = error.message;
       });
-    },
-    [loginAction],
-  );
+    }
+
+    setErrors(latestErrors);
+    if (success) redirect("/");
+  });
 
   return (
-    <form action={clientLoginAction} className="flex flex-col gap-6">
+    <form action={serverAction} className="flex flex-col gap-6">
       <Input
         type="text"
         name="username"

@@ -4,10 +4,8 @@ import Topbar from "@/components/dashboard/Topbar";
 import Sidebar from "@/components/dashboard/Sidebar";
 
 export default function Dashboard({
-  logout,
   children,
 }: Readonly<{
-  logout: any;
   children: React.ReactNode;
 }>) {
   const triggerRef = useRef<HTMLDivElement>(null);
@@ -16,7 +14,7 @@ export default function Dashboard({
     <main className="grid h-screen w-full grid-cols-1 grid-rows-1 overflow-x-hidden bg-gray-100 lg:grid-cols-[280px_1fr]">
       <Sidebar triggerRef={triggerRef} />
       <div>
-        <Topbar logout={logout} triggerRef={triggerRef} />
+        <Topbar triggerRef={triggerRef} />
         <div className="p-4">{children}</div>
       </div>
     </main>
