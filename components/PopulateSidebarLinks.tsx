@@ -1,5 +1,7 @@
 import Link from "next/link";
+import translate from "@/hooks/translate";
 import { Role, SidebarLinks } from "@/roles";
+import { useLocale } from "next-intl";
 
 export default function PopulateSiderbarLinks({
   userRole,
@@ -9,6 +11,8 @@ export default function PopulateSiderbarLinks({
   links: SidebarLinks[Role];
 }) {
   if (!links) return;
+  const t = translate();
+  const locale = useLocale();
 
   return (
     <div className="flex flex-col gap-2">
@@ -16,11 +20,11 @@ export default function PopulateSiderbarLinks({
         baseLink.canView(userRole) ? (
           <Link
             key={baseLink.id}
-            href={baseLink.path}
-            className="active flex gap-2 p-3"
+            href={`/${locale}${baseLink.path}`}
+            className="active flex gap-2 p-3 capitalize"
           >
             <div className="h-6 w-6">{baseLink.icon}</div>
-            {baseLink.label}
+            {t(baseLink.label)}
           </Link>
         ) : null,
       )}

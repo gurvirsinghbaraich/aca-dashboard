@@ -1,16 +1,15 @@
 "use client";
 import { cn } from "@/lib/cn";
 import { useContext } from "react";
-import getAppropriateGreeting from "@/lib/getAppropriateGreeting";
-import {
-  DashboardContext,
-  DashboardContextProps,
-} from "@/contexts/DashboardProvider";
+import translate from "@/hooks/translate";
 import AdminDashboardChart from "./AdminDashboardChart";
+import { DashboardContext } from "@/contexts/DashboardProvider";
+import getAppropriateGreeting from "@/lib/getAppropriateGreeting";
 
-export default async function AdminDashboard() {
+export default function AdminDashboard() {
+  const t = translate();
   const { recentlyAddedAgents, recentlyAddedCustomers, session } =
-    useContext<DashboardContextProps>(DashboardContext);
+    useContext(DashboardContext);
 
   return (
     <>
@@ -18,10 +17,10 @@ export default async function AdminDashboard() {
         <div className="flex flex-col justify-center gap-4">
           <div>
             <h2 className="text-2xl font-medium capitalize text-[var(--blue)]">
-              {getAppropriateGreeting()}, {session.user.fullName}
+              {t(getAppropriateGreeting())}, {session.user.fullName}
             </h2>
             <p className="text-gray-600">
-              Here&apos;s what&apos;s happening with your store today!
+              {t("Here's what's happening with your store today!")}
             </p>
           </div>
 
@@ -35,7 +34,9 @@ export default async function AdminDashboard() {
               >
                 {recentlyAddedAgents}
               </h3>
-              <p className="text-gray-600">Agent&apos;s added today.</p>
+              <p className="capitalize text-gray-600">
+                {t("Agent's added today.")}
+              </p>
             </div>
 
             <div>
@@ -47,7 +48,7 @@ export default async function AdminDashboard() {
               >
                 {recentlyAddedCustomers}
               </h3>
-              <p className="text-gray-600">Customer&apos;s added today.</p>
+              <p className="text-gray-600">{t("Customer's added today.")}</p>
             </div>
           </div>
         </div>

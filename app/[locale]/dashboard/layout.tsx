@@ -9,6 +9,7 @@ import getDatabase from "@/auth/providers/prisma";
 import moment from "moment";
 import { ServerActionProvider } from "@/contexts/ServerActionContext";
 import searchAgent from "@/actions/searchAgent";
+import { getLocale } from "next-intl/server";
 
 export default async function DashboardLayout({
   children,
@@ -18,6 +19,8 @@ export default async function DashboardLayout({
   if (!session) {
     return redirect("/");
   }
+
+  const locale = await getLocale();
 
   const getCount = async (role: Role) => {
     const formatter = new Intl.NumberFormat("en-US", {
@@ -46,7 +49,7 @@ export default async function DashboardLayout({
 
   return (
     <DashboardProvider
-      value={{ session, recentlyAddedAgents, recentlyAddedCustomers }}
+      value={{ session, locale, recentlyAddedAgents, recentlyAddedCustomers }}
     >
       <ServerActionProvider value={{ searchAgent, logout }}>
         <Dashboard>{children}</Dashboard>

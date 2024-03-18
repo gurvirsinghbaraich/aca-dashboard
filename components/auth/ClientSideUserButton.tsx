@@ -3,6 +3,7 @@ import React from "react";
 import { Button } from "@/components";
 import { SessionCookie } from "@/interface";
 import UserAvatar from "@/components/icons/UserAvatar";
+import translate from "@/hooks/translate";
 
 const ClientSideUserButton = ({
   session,
@@ -11,6 +12,7 @@ const ClientSideUserButton = ({
   session: SessionCookie;
   logoutAction: () => void;
 }) => {
+  const t = translate();
   const modelRef = React.useRef<HTMLDialogElement>(null);
 
   const toggleModel = React.useCallback(() => {
@@ -45,21 +47,24 @@ const ClientSideUserButton = ({
       >
         <UserAvatar />
       </div>
-      <dialog ref={modelRef} className="absolute -left-36 top-[110%] p-3">
+      <dialog
+        ref={modelRef}
+        className="absolute -left-36 top-[110%] p-3 shadow"
+      >
         <div className="flex flex-col gap-1">
           <div className="w-screen max-w-36 overflow-hidden rounded-md">
             <div>
               <table className="capitalize">
                 <thead className="text-sm font-semibold">
                   <tr>
-                    <td>Name:&nbsp;</td>
+                    <td>{t("Name:")}&nbsp;</td>
                     <td>{session.user.fullName}</td>
                   </tr>
                 </thead>
                 <tbody className="text-xs text-blue-500">
                   <tr>
-                    <td>Role:</td>
-                    <td>{session.user.role}</td>
+                    <td>{t("Role:")}</td>
+                    <td>{t(session.user.role)}</td>
                   </tr>
                 </tbody>
               </table>
@@ -67,7 +72,7 @@ const ClientSideUserButton = ({
           </div>
           <div className="my-2 border-2 border-dotted py-2"></div>
           <form action={logoutAction}>
-            <Button className="py-2" title="Logout" />
+            <Button className="py-2" title={t("Logout")} />
           </form>
         </div>
       </dialog>

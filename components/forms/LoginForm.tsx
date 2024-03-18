@@ -1,10 +1,12 @@
 "use client";
 import Link from "next/link";
+import { useContext, useState } from "react";
 import { redirect } from "next/navigation";
-import { Button, Input } from "@/components";
-import { useState } from "react";
 import { ServerAction } from "@/interface";
+import { Button, Input } from "@/components";
 import useServerAction from "@/hooks/useServerAction";
+import { DashboardContext } from "@/contexts/DashboardProvider";
+import translate from "@/hooks/translate";
 
 type FormErrors = {
   username: string | null;
@@ -12,6 +14,7 @@ type FormErrors = {
 };
 
 export default function LoginForm({ loginAction }: { loginAction: any }) {
+  const t = translate();
   const [errors, setErrors] = useState<FormErrors>({
     username: null,
     password: null,
@@ -42,32 +45,32 @@ export default function LoginForm({ loginAction }: { loginAction: any }) {
       <Input
         type="text"
         name="username"
-        title="UserName"
+        title={t("Username")}
         error={errors.username}
         placeholder="Ralph Adwards"
       />
       <Input
         type="password"
         name="password"
-        title="Password"
+        title={t("Password")}
         placeholder="********"
         error={errors.password}
       />
 
       <Button
-        title="Login"
+        title={t("Login")}
         loading={waitingForResponse}
         disabled={waitingForResponse}
       />
 
       {/* Forget Button */}
       <div className="flex justify-center gap-1 rounded bg-gray-200 bg-opacity-50 p-3 py-6 text-base text-gray-600">
-        <p>Forget your password?</p>
+        <p>{t("Forget your password?")}</p>
         <Link
           className="rounded font-medium text-gray-700 underline"
           href={"/reset-password"}
         >
-          Reset It
+          {t("Reset It")}
         </Link>
       </div>
     </form>

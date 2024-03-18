@@ -5,17 +5,16 @@ import { sidebarLinks } from "@/routes";
 import PopulateSiderbarLinks from "@/components/PopulateSidebarLinks";
 import { RefObject, useContext, useEffect, useRef, useState } from "react";
 import { hasLinksToRender, isSuperiorOrEqual, sanitizeRole } from "@/roles";
-import {
-  DashboardContext,
-  DashboardContextProps,
-} from "@/contexts/DashboardProvider";
+import { DashboardContext } from "@/contexts/DashboardProvider";
+import translate from "@/hooks/translate";
 
 type SidebarProps = {
   triggerRef: RefObject<HTMLDivElement>;
 };
 
 export default function Sidebar({ triggerRef }: SidebarProps) {
-  const { session } = useContext<DashboardContextProps>(DashboardContext);
+  const t = translate();
+  const { session } = useContext(DashboardContext);
   const sidebarRef = useRef<HTMLDivElement>(null);
   const closeTriggerRef = useRef<HTMLDivElement>(null);
   const sidebarContainerRef = useRef<HTMLDivElement>(null);
@@ -110,7 +109,9 @@ export default function Sidebar({ triggerRef }: SidebarProps) {
           {/* Admin Links */}
           <div>
             {isSuperiorOrEqual(sanitizeRole(session.user?.role), "admin") && (
-              <div className="py-4 text-sm font-semibold uppercase">Admin</div>
+              <div className="py-4 text-sm font-semibold uppercase">
+                {t("Admin")}
+              </div>
             )}
             <PopulateSiderbarLinks
               userRole={sanitizeRole(session.user?.role)}
@@ -123,7 +124,7 @@ export default function Sidebar({ triggerRef }: SidebarProps) {
             {isSuperiorOrEqual(sanitizeRole(session.user.role), "agent") &&
               hasLinksToRender(sanitizeRole(session.user.role), "agent") && (
                 <div className="py-4 text-sm font-semibold uppercase">
-                  Agent
+                  {t("Agent")}
                 </div>
               )}
             <PopulateSiderbarLinks
@@ -139,7 +140,7 @@ export default function Sidebar({ triggerRef }: SidebarProps) {
             {isSuperiorOrEqual(sanitizeRole(session.user.role), "customer") &&
               hasLinksToRender(sanitizeRole(session.user.role), "customer") && (
                 <div className="py-4 text-sm font-semibold uppercase">
-                  Customer
+                  {t("Customer")}
                 </div>
               )}
             <PopulateSiderbarLinks

@@ -1,24 +1,22 @@
 "use client";
 import { RefObject, useContext } from "react";
 import { Input } from "@/components";
-import {
-  LanguageIcon,
-  MenuIcon,
-  NotificationIcon,
-  SearchIcon,
-} from "@/components/icons";
+import { MenuIcon, NotificationIcon, SearchIcon } from "@/components/icons";
 import UserButton from "../auth/UserButton";
 import {
   DashboardContext,
   DashboardContextProps,
 } from "@/contexts/DashboardProvider";
 import { ServerActionContext } from "@/contexts/ServerActionContext";
+import translate from "@/hooks/translate";
+import LanguageButton from "../LanguageButton";
 
 export default function Topbar({
   triggerRef,
 }: {
   triggerRef: RefObject<HTMLDivElement>;
 }) {
+  const t = translate();
   const { logout } = useContext(ServerActionContext);
   const { session } = useContext<DashboardContextProps>(DashboardContext);
 
@@ -31,7 +29,7 @@ export default function Topbar({
         >
           <MenuIcon className="h-6 w-6 cursor-pointer" />
         </div>
-        <LanguageIcon className="h-6 w-6 cursor-pointer" />
+        <LanguageButton />
       </div>
       <div className="flex items-center gap-4">
         <Input
@@ -39,7 +37,7 @@ export default function Topbar({
           type="text"
           icon={<SearchIcon className="h-6 w-6" color="rgb(174, 180, 190)" />}
           className="bg-[var(--bg-light-gray)]"
-          placeholder="Search"
+          placeholder={t("Search")}
         />
         <div>
           <div className="relative cursor-pointer p-0.5">
